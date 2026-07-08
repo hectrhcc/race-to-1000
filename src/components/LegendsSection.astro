@@ -1,0 +1,418 @@
+---
+export interface Legend {
+  id: string;
+  name: string;
+  country: string;
+  countryFlag: string;
+  era: string;
+  goals: number;
+  position: string;
+  image: string;
+  description: string;
+  notableAchievement: string;
+}
+
+export interface Props {
+  legends: Legend[];
+}
+
+const { legends } = Astro.props;
+
+const TARGET = 1000;
+
+const sorted = [...legends].sort((a, b) => b.goals - a.goals);
+---
+
+<section class="legends-section">
+  <div class="container">
+    <div class="legends-header">
+      <span class="section-label">Leyendas</span>
+      <h2 class="legends-title">Inmortales del gol</h2>
+      <p class="legends-subtitle">
+        Goleadores retirados que marcaron época. Jugadores que redefinieron el arte de hacer goles
+        y cuyo legado sigue inspirando a las nuevas generaciones.
+      </p>
+    </div>
+
+    <div class="legends-grid stagger-children">
+      {sorted.map((legend) => {
+        const pct = Math.min((legend.goals / TARGET) * 100, 100);
+        const fallbackSrc = `https://ui-avatars.com/api/?name=${encodeURIComponent(legend.name)}&size=144&background=27272a&color=fbbf24&bold=true&format=svg`;
+        return (
+          <article class="legend-card">
+            <!-- Crown icon for legends -->
+            <div class="legend-crown">👑</div>
+
+            <!-- Image -->
+            <div class="legend-img-wrap">
+              <div class="legend-img-bg"></div>
+              {
+                legend.image
+                  ? (
+                    <img
+                      src={legend.image}
+                      alt={`Foto de ${legend.name}`}
+                      class="legend-img"
+                      width="72"
+                      height="72"
+                      loading="lazy"
+                      decoding="async"
+                      onerror={`this.onerror=null;this.src='${fallbackSrc}'`}
+                    />
+                  )
+                  : (
+                    <div class="legend-img-fallback">
+                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2z"/>
+                      </svg>
+                    </div>
+                  )
+              }
+            </div>
+
+            <!-- Info -->
+            <div class="legend-info">
+              <h3 class="legend-name">{legend.name}</h3>
+              <div class="legend-meta">
+                <span class="legend-country">
+                  <span>{legend.countryFlag}</span>
+                  {legend.country}
+                </span>
+                <span class="legend-era">{legend.era}</span>
+              </div>
+              <p class="legend-desc">{legend.description}</p>
+            </div>
+
+            <!-- Goals -->
+            <div class="legend-goals">
+              <span class="legend-goals-num tabular-nums">{legend.goals.toLocaleString('es-ES')}</span>
+              <span class="legend-goals-label">goles oficiales</span>
+            </div>
+
+            <!-- Progress -->
+            <div class="legend-progress">
+              <div class="legend-bar-track">
+                <div class="legend-bar-fill" style={`width: ${pct}%`}></div>
+              </div>
+              <span class="legend-pct tabular-nums">{pct.toFixed(0)}%</span>
+            </div>
+
+            <!-- Achievement -->
+            <div class="legend-achievement">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="8" r="6"/>
+                <path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/>
+              </svg>
+              <span>{legend.notableAchievement}</span>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+
+    <!-- Footnote -->
+    <div class="legends-footnote">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="16" x2="12" y2="12"/>
+        <line x1="12" y1="8" x2="12.01" y2="8"/>
+      </svg>
+      <span>
+        Las cifras de goles pueden variar según la fuente. Se muestran totales oficiales reconocidos (club + selección).
+        Algunos jugadores como <strong>Pelé</strong> y <strong>Romário</strong> superan los <strong>1.000 goles</strong> si se contabilizan partidos amistosos y no oficiales.
+      </span>
+    </div>
+  </div>
+</section>
+
+<style>
+.legends-section {
+  padding: 4rem 0;
+  border-top: 1px solid var(--color-border);
+  background:
+    radial-gradient(ellipse 60% 40% at 30% 20%, rgba(251, 191, 36, 0.05) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 35% at 70% 70%, rgba(217, 119, 6, 0.03) 0%, transparent 50%);
+  position: relative;
+  overflow: hidden;
+}
+
+.legends-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 50px,
+      rgba(251, 191, 36, 0.012) 50px,
+      rgba(251, 191, 36, 0.012) 51px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 50px,
+      rgba(251, 191, 36, 0.012) 50px,
+      rgba(251, 191, 36, 0.012) 51px
+    );
+  pointer-events: none;
+}
+
+.legends-header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 2.5rem;
+  position: relative;
+}
+
+.legends-title {
+  font-size: clamp(1.5rem, 3.2vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, #fde68a 0%, #fbbf24 40%, #f59e0b 70%, #d97706 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.legends-subtitle {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  max-width: 560px;
+  line-height: 1.6;
+}
+
+/* Grid */
+.legends-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+/* Card */
+.legend-card {
+  background: var(--color-bg-card);
+  border: 1px solid rgba(251, 191, 36, 0.12);
+  border-radius: var(--radius-card);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+  cursor: default;
+}
+
+.legend-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(251, 191, 36, 0.35);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(251, 191, 36, 0.08);
+}
+
+/* Crown */
+.legend-crown {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  font-size: 1.3rem;
+  line-height: 1;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.12), rgba(217, 119, 6, 0.05));
+  border: 1px solid rgba(251, 191, 36, 0.25);
+  border-radius: 8px;
+}
+
+/* Image */
+.legend-img-wrap {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.legend-img-bg {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(217, 119, 6, 0.08));
+  filter: blur(12px);
+  opacity: 0.6;
+}
+
+.legend-img {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  background: var(--color-bg-surface);
+  border: 1.5px solid rgba(251, 191, 36, 0.3);
+  display: block;
+  position: relative;
+}
+
+.legend-img-fallback {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(251,191,36,0.12), rgba(217,119,6,0.05));
+  border: 1.5px solid rgba(251,191,36,0.3);
+}
+
+/* Info */
+.legend-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.legend-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  letter-spacing: -0.02em;
+}
+
+.legend-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.legend-country,
+.legend-era {
+  font-size: 0.78rem;
+  color: var(--color-text-secondary);
+}
+
+.legend-era {
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: var(--color-border-subtle);
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+.legend-desc {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+  margin-top: 2px;
+}
+
+/* Goals display */
+.legend-goals {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.legend-goals-num {
+  font-size: 2.2rem;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  background: linear-gradient(135deg, #fde68a 0%, #fbbf24 40%, #d97706 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.legend-goals-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+/* Progress bar */
+.legend-progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.legend-bar-track {
+  flex: 1;
+  height: 6px;
+  background: rgba(251, 191, 36, 0.1);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.legend-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #fbbf24, #f59e0b, #d97706);
+  box-shadow: 0 0 8px rgba(251, 191, 36, 0.25);
+  transition: width 1s ease;
+}
+
+.legend-pct {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-gold-base);
+  width: 36px;
+  text-align: right;
+}
+
+/* Achievement */
+.legend-achievement {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.legend-achievement svg {
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+
+/* Footnote */
+.legends-footnote {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 2rem;
+  padding: 1rem 1.25rem;
+  background: rgba(251, 191, 36, 0.04);
+  border: 1px solid rgba(251, 191, 36, 0.1);
+  border-radius: 12px;
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+.legends-footnote svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  opacity: 0.5;
+}
+
+.legends-footnote strong {
+  color: var(--color-text-secondary);
+}
+
+@media (max-width: 640px) {
+  .legends-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>

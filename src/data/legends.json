@@ -1,0 +1,74 @@
+[
+  {
+    "id": "pele",
+    "name": "Pelé",
+    "country": "Brasil",
+    "countryFlag": "🇧🇷",
+    "era": "1956–1977",
+    "goals": 767,
+    "position": "Delantero",
+    "image": "/images/legends/pele.jpg",
+    "description": "El Rey. Tricampeón del mundo, la leyenda más grande del fútbol.",
+    "notableAchievement": "3x Mundial • 767 goles oficiales"
+  },
+  {
+    "id": "romario",
+    "name": "Romário",
+    "country": "Brasil",
+    "countryFlag": "🇧🇷",
+    "era": "1985–2007",
+    "goals": 772,
+    "position": "Delantero",
+    "image": "/images/legends/romario.jpg",
+    "description": "Genio del área. Mundial 1994, máximo ídolo del Barcelona y el PSV.",
+    "notableAchievement": "Mundial 1994 • 772 goles oficiales"
+  },
+  {
+    "id": "puskas",
+    "name": "Ferenc Puskás",
+    "country": "Hungría",
+    "countryFlag": "🇭🇺",
+    "era": "1943–1966",
+    "goals": 746,
+    "position": "Delantero",
+    "image": "/images/legends/puskas.jpg",
+    "description": "El Cañoncito Puskás. Leyenda del Real Madrid y la Hungría dorada.",
+    "notableAchievement": "4x Pichichi • 746 goles oficiales"
+  },
+  {
+    "id": "gerdmuller",
+    "name": "Gerd Müller",
+    "country": "Alemania",
+    "countryFlag": "🇩🇪",
+    "era": "1964–1981",
+    "goals": 735,
+    "position": "Delantero",
+    "image": "/images/legends/gerdmuller.jpg",
+    "description": "Der Bomber. Récord imbatible de goles en Bundesliga durante décadas.",
+    "notableAchievement": "Mundial 1974 • 735 goles oficiales"
+  },
+  {
+    "id": "eusebio",
+    "name": "Eusébio",
+    "country": "Portugal",
+    "countryFlag": "🇵🇹",
+    "era": "1957–1979",
+    "goals": 615,
+    "position": "Delantero",
+    "image": "/images/legends/eusebio.jpg",
+    "description": "La Pantera Negra. Símbolo del Benfica y máximo goleador portugués antes de CR7.",
+    "notableAchievement": "Mundial 1966 • 615 goles oficiales"
+  },
+  {
+    "id": "distefano",
+    "name": "Alfredo Di Stéfano",
+    "country": "Argentina",
+    "countryFlag": "🇦🇷",
+    "era": "1945–1966",
+    "goals": 513,
+    "position": "Delantero",
+    "image": "/images/legends/distefano.jpg",
+    "description": "La Saeta Rubia. Eterno ídolo del Real Madrid, 5 Copas de Europa consecutivas.",
+    "notableAchievement": "5x Copa Europa • 513 goles oficiales"
+  }
+]
