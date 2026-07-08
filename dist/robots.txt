@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://goat-counter.vercel.app/sitemap-index.xml
