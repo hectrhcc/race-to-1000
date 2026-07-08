@@ -32,6 +32,14 @@ export default defineConfig({
           return item;
         }
 
+        // Leyendas page — high priority, updated weekly
+        if (url === SITE + '/leyendas') {
+          item.priority = 0.8;
+          item.changefreq = 'weekly';
+          item.lastmod = LAST_MOD;
+          return item;
+        }
+
         // Default for any other pages
         item.priority = 0.7;
         item.changefreq = 'weekly';

@@ -1,25 +1,20 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Ranking from '../components/Ranking.astro';
-import Timeline from '../components/Timeline.astro';
+import LegendsSection from '../components/LegendsSection.astro';
 import Footer from '../components/Footer.astro';
 
 import playersData from '../data/players.json';
-import historyData from '../data/history.json';
-import type { Player, HistoryEntry } from '../types/player';
+import legendsData from '../data/legends.json';
 
-const players = playersData as Player[];
-const history = historyData as HistoryEntry[];
-
-const lastUpdated = players.reduce((latest, p) =>
+const lastUpdated = (playersData as { updatedAt: string }[]).reduce((latest, p) =>
   p.updatedAt > latest ? p.updatedAt : latest, '');
 ---
 
 <BaseLayout
-  title="Ranking — Race to 1000"
-  description={`Ranking global y timeline de evolución. Sigue la carrera de los mejores goleadores activos hacia los 1.000 goles.`}
+  title="Leyendas — Race to 1000"
+  description="Los goleadores retirados más legendarios del fútbol mundial. Pelé, Maradona, Puskás y otras leyendas que marcaron la historia del gol."
 >
-  <main class="ranking-page">
+  <main class="leyendas-page">
     <!-- Breadcrumb -->
     <nav class="breadcrumb" aria-label="Estás aquí">
       <div class="container">
@@ -31,25 +26,14 @@ const lastUpdated = players.reduce((latest, p) =>
             </svg>
           </li>
           <li>
-            <span class="breadcrumb-current" aria-current="page">Ranking</span>
+            <span class="breadcrumb-current" aria-current="page">Leyendas</span>
           </li>
         </ol>
       </div>
     </nav>
 
-    <!-- Ranking Global -->
-    <section id="ranking">
-      <div class="container">
-        <Ranking players={players} />
-      </div>
-    </section>
-
-    <!-- Timeline / History -->
-    <section id="historial">
-      <div class="container">
-        <Timeline players={players} history={history} />
-      </div>
-    </section>
+    <!-- Legends Section -->
+    <LegendsSection legends={legendsData} />
 
     <!-- Footer -->
     <Footer lastUpdated={lastUpdated} />
@@ -57,7 +41,7 @@ const lastUpdated = players.reduce((latest, p) =>
 </BaseLayout>
 
 <style>
-.ranking-page {
+.leyendas-page {
   padding-bottom: 0;
 }
 
@@ -99,11 +83,5 @@ const lastUpdated = players.reduce((latest, p) =>
   font-size: 0.8rem;
   font-weight: 600;
   color: var(--color-text-primary);
-}
-
-/* Smooth anchor offset for sticky navbar */
-#ranking,
-#historial {
-  scroll-margin-top: 64px;
 }
 </style>
