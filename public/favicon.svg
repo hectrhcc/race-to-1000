@@ -1,6 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
   <rect width="48" height="48" rx="12" fill="#09090b"/>
-  <circle cx="24" cy="24" r="18" stroke="#27272a" stroke-width="1.5"/>
-  <path d="M24 10 L27.5 18.5 L37 19.5 L30.5 26 L32 35 L24 31 L16 35 L17.5 26 L11 19.5 L20.5 18.5 Z"
-        fill="#22c55e"/>
+  <!-- Gold ring accent -->
+  <circle cx="24" cy="24" r="19" stroke="#fbbf24" stroke-width="2.5" opacity="0.5"/>
+  <!-- Subtle glow behind number -->
+  <circle cx="24" cy="24" r="14" fill="#fbbf24" opacity="0.08"/>
+  <!-- Number 1000 in gold -->
+  <text x="24" y="32" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="800" fill="#fbbf24" letter-spacing="-1">1000</text>
+  <!-- Football accent -->
+  <circle cx="36" cy="13" r="4" fill="#fbbf24" opacity="0.85"/>
+  <path d="M34 11 L38 15 M38 11 L34 15" stroke="#09090b" stroke-width="1.2"/>
 </svg>
