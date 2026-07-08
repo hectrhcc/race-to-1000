@@ -22,6 +22,23 @@ const lastUpdated = players.reduce((latest, p) =>
   description={`Ranking global, timeline de evolución y leyendas del fútbol. Sigue la carrera hacia los 1.000 goles.`}
 >
   <main class="ranking-page">
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb" aria-label="Estás aquí">
+      <div class="container">
+        <ol class="breadcrumb-list">
+          <li><a href="/" class="breadcrumb-link">Inicio</a></li>
+          <li class="breadcrumb-sep" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          </li>
+          <li>
+            <span class="breadcrumb-current" aria-current="page">Clasificación</span>
+          </li>
+        </ol>
+      </div>
+    </nav>
+
     <!-- Ranking Global -->
     <section id="ranking">
       <div class="container">
@@ -47,6 +64,46 @@ const lastUpdated = players.reduce((latest, p) =>
 <style>
 .ranking-page {
   padding-bottom: 0;
+}
+
+/* ─── Breadcrumb ───────────────────────────────────────────── */
+.breadcrumb {
+  padding: 1rem 0 0;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg-surface);
+}
+
+.breadcrumb-list {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  list-style: none;
+  padding: 0.6rem 0;
+}
+
+.breadcrumb-link {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.breadcrumb-link:hover {
+  color: var(--color-gold-base);
+}
+
+.breadcrumb-sep {
+  display: flex;
+  align-items: center;
+  color: var(--color-text-muted);
+  opacity: 0.4;
+}
+
+.breadcrumb-current {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
 }
 
 /* Smooth anchor offset for sticky navbar */

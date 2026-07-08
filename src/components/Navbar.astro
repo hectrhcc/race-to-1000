@@ -148,6 +148,20 @@
 .nav-link[aria-current="page"] {
   color: var(--color-gold-base);
   background: rgba(251, 191, 36, 0.06);
+  position: relative;
+}
+
+.nav-link[aria-current="page"]::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--color-gold-base);
+  box-shadow: 0 0 8px rgba(251, 191, 36, 0.5);
 }
 
 /* ─── Mobile ────────────────────────────────────────────────── */
@@ -185,6 +199,13 @@
   .nav-link {
     width: 100%;
     padding: 0.65rem 0.75rem;
+  }
+
+  .nav-link[aria-current="page"]::after {
+    bottom: 4px;
+    width: 40px;
+    left: 0.75rem;
+    transform: none;
   }
 }
 </style>
