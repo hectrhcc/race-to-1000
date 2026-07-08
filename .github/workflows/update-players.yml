@@ -37,7 +37,7 @@ jobs:
 
       # Ejecuta tu script de scraping/API
       - name: Fetch latest goal data
-        run: node scripts/fetch-goals.js
+        run: node scripts/fetch-goals.cjs
         env:
           DRY_RUN: ${{ inputs.dry_run || 'false' }}
 
