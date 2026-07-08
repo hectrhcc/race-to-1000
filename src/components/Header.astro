@@ -29,7 +29,7 @@ const formattedDate = new Date(lastUpdated).toLocaleDateString('es-ES', {
           </svg>
         </div>
         <div>
-          <h1 class="site-title font-display tracking-tightest gradient-text">GOAT Counter</h1>
+          <h1 class="site-title">GOAT Counter</h1>
           <p class="site-subtitle">Race to 1,000 Goals</p>
         </div>
       </div>
@@ -46,20 +46,20 @@ const formattedDate = new Date(lastUpdated).toLocaleDateString('es-ES', {
       </div>
     </div>
 
-      <!-- Hero Stats -->
-    <div class="hero-stats glass">
+    <!-- Hero Stats -->
+    <div class="hero-stats">
       <div class="hero-stat">
-        <span class="hero-num font-display tracking-tightest tabular-nums gradient-text" id="total-goals-counter" data-target={totalGoals}>0</span>
+        <span class="hero-num tabular-nums" id="total-goals-counter" data-target={totalGoals}>0</span>
         <span class="hero-label">Goles totales</span>
       </div>
       <div class="hero-divider"></div>
       <div class="hero-stat">
-        <span class="hero-num font-display tracking-tightest gradient-text">{playerCount}</span>
+        <span class="hero-num">{playerCount}</span>
         <span class="hero-label">Jugadores activos</span>
       </div>
       <div class="hero-divider"></div>
       <div class="hero-stat">
-        <span class="hero-num font-display tracking-tightest gradient-text-green">1,000</span>
+        <span class="hero-num gradient-text-green">1,000</span>
         <span class="hero-label">Meta de goles</span>
       </div>
     </div>

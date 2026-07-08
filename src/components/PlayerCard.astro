@@ -27,10 +27,10 @@ const updatedDate = new Date(player.updatedAt).toLocaleDateString('es-ES', {
 const fallbackSrc = `https://ui-avatars.com/api/?name=${encodeURIComponent(player.name)}&size=200&background=27272a&color=f4f4f5&bold=true&format=svg`;
 ---
 
-<article class="card player-card animate-fade-up" data-player-id={player.id}>
+<article class="player-card animate-fade-up" data-player-id={player.id}>
   <!-- Rank Badge -->
   <div class="rank-badge" class:list={[{ 'rank-top3': rank <= 3 }]}>
-    {medal ? <span class="medal">{medal}</span> : <span class="rank-num font-display">#{rank}</span>}
+    {medal ? <span class="medal">{medal}</span> : <span class="rank-num">#{rank}</span>}
   </div>
 
   <!-- Player Image -->
@@ -50,7 +50,7 @@ const fallbackSrc = `https://ui-avatars.com/api/?name=${encodeURIComponent(playe
 
   <!-- Player Info -->
   <div class="player-info">
-    <h2 class="player-name font-display tracking-tightest">{player.name}</h2>
+    <h2 class="player-name">{player.name}</h2>
 
     <div class="player-meta">
       <span class="player-club">
@@ -74,7 +74,7 @@ const fallbackSrc = `https://ui-avatars.com/api/?name=${encodeURIComponent(playe
 
   <!-- Goals Number -->
   <div class="goals-display">
-    <span class="goals-num font-display tracking-tightest tabular-nums gradient-text">{player.goals.toLocaleString('es-ES')}</span>
+    <span class="goals-num tabular-nums">{player.goals.toLocaleString('es-ES')}</span>
     <span class="goals-label">goles oficiales</span>
   </div>
 
@@ -101,69 +101,72 @@ const fallbackSrc = `https://ui-avatars.com/api/?name=${encodeURIComponent(playe
 
 <style>
 .player-card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: 1rem;
+  position: relative;
+  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
   cursor: default;
+}
+
+.player-card:hover {
+  transform: translateY(-5px);
+  border-color: #3f3f46;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(34, 197, 94, 0.05);
 }
 
 /* Rank Badge */
 .rank-badge {
   position: absolute;
-  top: 1.2rem;
-  right: 1.2rem;
+  top: 1rem;
+  right: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
-  background: rgba(255,255,255,0.03);
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: var(--color-bg-surface);
   border: 1px solid var(--color-border);
-  backdrop-filter: blur(10px);
 }
 
 .rank-badge.rank-top3 {
   background: transparent;
   border: none;
-  box-shadow: none;
-  backdrop-filter: none;
 }
 
-.medal { font-size: 1.4rem; line-height: 1; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); }
-.rank-num { font-size: 0.75rem; color: var(--color-text-muted); }
+.medal { font-size: 1.2rem; line-height: 1; }
+.rank-num { font-size: 0.72rem; font-weight: 700; color: var(--color-text-muted); }
 
 /* Image */
 .player-img-wrap {
   position: relative;
-  width: 88px;
-  height: 88px;
+  width: 80px;
+  height: 80px;
   flex-shrink: 0;
 }
 
 .player-img {
-  width: 88px;
-  height: 88px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   object-fit: cover;
   object-position: center top;
   background: var(--color-bg-surface);
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 2px solid var(--color-border);
   display: block;
 }
 
 .img-ring {
   position: absolute;
-  inset: -4px;
+  inset: -3px;
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1.5px solid rgba(34, 197, 94, 0.15);
   pointer-events: none;
-  transition: border-color 0.4s ease;
-}
-
-.player-card:hover .img-ring {
-  border-color: rgba(16, 185, 129, 0.3);
 }
 
 /* Info */
@@ -174,15 +177,17 @@ const fallbackSrc = `https://ui-avatars.com/api/?name=${encodeURIComponent(playe
 }
 
 .player-name {
-  font-size: 1.2rem;
+  font-size: 1.05rem;
+  font-weight: 700;
   color: var(--color-text-primary);
-  line-height: 1.1;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
 }
 
 .player-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
   align-items: center;
 }
 
@@ -191,22 +196,21 @@ const fallbackSrc = `https://ui-avatars.com/api/?name=${encodeURIComponent(playe
   display: flex;
   align-items: center;
   gap: 4px;
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   color: var(--color-text-secondary);
 }
 
 .player-club svg,
 .player-country svg {
-  opacity: 0.4;
+  opacity: 0.5;
 }
 
-.flag { font-size: 1rem; }
+.flag { font-size: 0.9rem; }
 
 .player-pos-age {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   flex-wrap: wrap;
-  margin-top: 4px;
 }
 
 /* Goals Number */
@@ -217,8 +221,14 @@ const fallbackSrc = `https://ui-avatars.com/api/?name=${encodeURIComponent(playe
 }
 
 .goals-num {
-  font-size: 3rem;
+  font-size: 2.4rem;
+  font-weight: 900;
+  letter-spacing: -0.05em;
   line-height: 1;
+  background: linear-gradient(135deg, #f4f4f5 30%, #71717a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .goals-label {
