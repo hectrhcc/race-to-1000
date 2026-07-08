@@ -33,10 +33,10 @@ const formattedDate = new Date(lastUpdated).toLocaleDateString('es-ES', {
 
   <div class="stats-grid">
     <!-- Total Goals -->
-    <div class="stat-card stat-card--highlight">
+    <div class="card stat-card stat-card--highlight">
       <div class="stat-icon">⚽</div>
       <div class="stat-body">
-        <span class="stat-value tabular-nums gradient-text-green"
+        <span class="stat-value font-display tracking-tightest tabular-nums gradient-text-green"
           id="stat-total"
           data-target={totalGoals}>{totalGoals.toLocaleString('es-ES')}</span>
         <span class="stat-name">Goles totales entre todos</span>
@@ -45,50 +45,50 @@ const formattedDate = new Date(lastUpdated).toLocaleDateString('es-ES', {
     </div>
 
     <!-- Leader -->
-    <div class="stat-card">
+    <div class="card stat-card">
       <div class="stat-icon">🏆</div>
       <div class="stat-body">
-        <span class="stat-value tabular-nums">{leader.goals.toLocaleString('es-ES')}</span>
+        <span class="stat-value font-display tracking-tightest tabular-nums gradient-text">{leader.goals.toLocaleString('es-ES')}</span>
         <span class="stat-name">Goles del líder</span>
         <span class="stat-sub">{leader.name}</span>
       </div>
     </div>
 
     <!-- Average -->
-    <div class="stat-card">
+    <div class="card stat-card">
       <div class="stat-icon">📊</div>
       <div class="stat-body">
-        <span class="stat-value tabular-nums">{avgGoals.toLocaleString('es-ES')}</span>
+        <span class="stat-value font-display tracking-tightest tabular-nums gradient-text">{avgGoals.toLocaleString('es-ES')}</span>
         <span class="stat-name">Promedio por jugador</span>
         <span class="stat-sub">Media de goles oficiales</span>
       </div>
     </div>
 
     <!-- Over 500 -->
-    <div class="stat-card">
+    <div class="card stat-card">
       <div class="stat-icon">🎯</div>
       <div class="stat-body">
-        <span class="stat-value tabular-nums">{over500}</span>
+        <span class="stat-value font-display tracking-tightest tabular-nums gradient-text">{over500}</span>
         <span class="stat-name">Jugadores con +500 goles</span>
         <span class="stat-sub">{((over500 / players.length) * 100).toFixed(0)}% del ranking</span>
       </div>
     </div>
 
     <!-- Over 900 -->
-    <div class="stat-card">
+    <div class="card stat-card">
       <div class="stat-icon">🌟</div>
       <div class="stat-body">
-        <span class="stat-value tabular-nums">{over900}</span>
+        <span class="stat-value font-display tracking-tightest tabular-nums gradient-text">{over900}</span>
         <span class="stat-name">Jugadores con +900 goles</span>
         <span class="stat-sub">Los más cercanos a 1.000</span>
       </div>
     </div>
 
     <!-- Last Updated -->
-    <div class="stat-card">
+    <div class="card stat-card">
       <div class="stat-icon">🕐</div>
       <div class="stat-body">
-        <span class="stat-value stat-value--sm">{new Date(lastUpdated).toLocaleDateString('es-ES', { day: 'numeric', month: 'short' })}</span>
+        <span class="stat-value font-display tracking-tightest stat-value--sm gradient-text">{new Date(lastUpdated).toLocaleDateString('es-ES', { day: 'numeric', month: 'short' })}</span>
         <span class="stat-name">Última actualización</span>
         <span class="stat-sub capitalize">{formattedDate}</span>
       </div>
@@ -123,24 +123,15 @@ const formattedDate = new Date(lastUpdated).toLocaleDateString('es-ES', {
 }
 
 .stat-card {
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-card);
   padding: 1.5rem;
   display: flex;
   align-items: flex-start;
   gap: 1rem;
-  transition: border-color 0.2s ease, transform 0.2s ease;
-}
-
-.stat-card:hover {
-  border-color: #3f3f46;
-  transform: translateY(-2px);
 }
 
 .stat-card--highlight {
-  background: linear-gradient(135deg, rgba(34, 197, 94, 0.04) 0%, rgba(24, 24, 27, 1) 60%);
-  border-color: rgba(34, 197, 94, 0.2);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(20, 20, 22, 0.4) 100%);
+  border-color: rgba(16, 185, 129, 0.2);
 }
 
 .stat-icon {

@@ -59,7 +59,13 @@ const fullImageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   </head>
-  <body>
+  <body class="antialiased">
+    <!-- Ambient Glows -->
+    <div class="ambient-glow-1"></div>
+    <div class="ambient-glow-2"></div>
+    <!-- Noise Texture -->
+    <div class="noise-overlay"></div>
+
     <slot />
   </body>
 </html>
