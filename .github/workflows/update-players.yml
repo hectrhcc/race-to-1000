@@ -1,55 +1,23 @@
-# Race to 1000 — GitHub Action Placeholder
-# ─────────────────────────────────────────────────────────────────────────────
-#
-# PURPOSE:
-#   This workflow is a TEMPLATE for a future automation bot that will:
-#   1. Scrape / fetch official goal statistics from a reliable source
-#   2. Update src/data/players.json with the latest goal counts
-#   3. Append a new entry to src/data/history.json (daily snapshot)
-#   4. Commit and push the changes to trigger a new Vercel/Netlify deploy
-#
-# HOW TO ACTIVATE:
-#   1. Implement the data-fetching script (see scripts/ below)
-#   2. Remove the `if: false` guard from the trigger block
-#   3. Set your GITHUB_TOKEN or any required API secrets
-#
-# EXPECTED DATA SOURCES (choose one or combine):
-#   - Football-data.org API (free tier available)
-#   - API-Football (RapidAPI)
-#   - Transfermarkt scraping (respect robots.txt & rate limits)
-#   - Manual update via PR if no API is available
-#
-# SCRIPT LOCATION (to be created):
-#   scripts/update-players.mjs
-#
-# ─────────────────────────────────────────────────────────────────────────────
-
 name: Update Player Goals
 
 on:
-  # Run daily at 06:00 UTC (when overnight matches have settled)
+  # Se ejecuta automáticamente todos los días a las 06:00 UTC
   schedule:
     - cron: '0 6 * * *'
 
-  # Allow manual trigger from GitHub UI
+  # Permite ejecución manual desde la interfaz de GitHub
   workflow_dispatch:
     inputs:
       dry_run:
         description: 'Dry run (no commit)'
         required: false
-        default: 'false'
+        default: false
         type: boolean
-
-# TEMPORARY: Disable until script is ready
-# Remove the condition below when activating
-# if: ${{ false }}
 
 jobs:
   update-goals:
     name: Fetch & Update Player Goals
     runs-on: ubuntu-latest
-    # REMOVE THIS LINE TO ACTIVATE:
-    if: false
 
     permissions:
       contents: write
@@ -65,23 +33,12 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
-      # ─── TODO: Implement this script ──────────────────────────────────────
-      # The script should:
-      #   1. Read src/data/players.json
-      #   2. Fetch updated goal counts for each player (by player.id)
-      #   3. Update player.goals and player.updatedAt fields
-      #   4. Write back to src/data/players.json
-      #   5. Read src/data/history.json
-      #   6. Append a new entry: { date: "YYYY-MM-DD", players: { id: goals } }
-      #   7. Write back to src/data/history.json
-      # ──────────────────────────────────────────────────────────────────────
+      # Ejecuta tu script de scraping/API
       - name: Fetch latest goal data
-        run: node scripts/update-players.mjs
+        run: node scripts/fetch-goals.js
         env:
-          # Add any required API keys here as GitHub Secrets
-          # FOOTBALL_API_KEY: ${{ secrets.FOOTBALL_API_KEY }}
           DRY_RUN: ${{ inputs.dry_run || 'false' }}
 
       - name: Check for changes
@@ -90,21 +47,10 @@ jobs:
           git diff --exit-code src/data/ || echo "changed=true" >> $GITHUB_OUTPUT
 
       - name: Commit and push if data changed
-        if: steps.diff.outputs.changed == 'true' && inputs.dry_run != 'true'
+        if: steps.diff.outputs.changed == 'true' && inputs.dry_run != true
         run: |
           git config user.name "Race to 1000 Bot"
           git config user.email "bot@race-to-1000.vercel.app"
           git add src/data/players.json src/data/history.json
           git commit -m "chore(data): update player goals $(date -u +%Y-%m-%d)"
           git push
-
-      - name: Summary
-        run: |
-          echo "### ⚽ Goals Update" >> $GITHUB_STEP_SUMMARY
-          echo "Data files updated successfully." >> $GITHUB_STEP_SUMMARY
-          cat src/data/players.json | node -e "
-            const players = JSON.parse(require('fs').readFileSync('/dev/stdin','utf8'));
-            players.sort((a,b) => b.goals - a.goals).slice(0,5).forEach(p =>
-              console.log(\`| \${p.name} | \${p.goals} |\`)
-            );
-          " >> $GITHUB_STEP_SUMMARY || true
