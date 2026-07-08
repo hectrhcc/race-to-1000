@@ -1,8 +1,8 @@
 {
-  "name": "goat-counter",
+  "name": "race-to-1000",
   "type": "module",
   "version": "0.1.0",
-  "description": "Track the most prolific active goal scorers in football history — the race to 1000.",
+  "description": "Race to 1000 goals — track the most prolific active goal scorers in football history.",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",

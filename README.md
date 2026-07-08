@@ -1,8 +1,8 @@
-# GOAT Counter — Race to 1,000 Goals
+# Race to 1000 — La carrera por los 1.000 goles
 
-> Track the most prolific active goal scorers in football history. The race to **1,000 official goals** is on.
+> Sigue a los goleadores más prolíficos del fútbol mundial. La carrera hacia los **1.000 goles oficiales** está en marcha.
 
-![GOAT Counter](public/og-image.png)
+![Race to 1000](public/og-image.png)
 
 ## 🚀 Quick Start
 

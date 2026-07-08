@@ -1,7 +1,7 @@
 {
-  "name": "GOAT Counter",
-  "short_name": "GOAT",
-  "description": "Track the most prolific active goal scorers in football history.",
+  "name": "Race to 1000",
+  "short_name": "Race2K",
+  "description": "Sigue la carrera de los goleadores hacia los 1.000 goles oficiales.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#09090b",

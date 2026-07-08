@@ -1,4 +1,4 @@
-# GOAT Counter — GitHub Action Placeholder
+# Race to 1000 — GitHub Action Placeholder
 # ─────────────────────────────────────────────────────────────────────────────
 #
 # PURPOSE:
@@ -92,8 +92,8 @@ jobs:
       - name: Commit and push if data changed
         if: steps.diff.outputs.changed == 'true' && inputs.dry_run != 'true'
         run: |
-          git config user.name "GOAT Counter Bot"
-          git config user.email "bot@goat-counter.vercel.app"
+          git config user.name "Race to 1000 Bot"
+          git config user.email "bot@race-to-1000.vercel.app"
           git add src/data/players.json src/data/history.json
           git commit -m "chore(data): update player goals $(date -u +%Y-%m-%d)"
           git push
