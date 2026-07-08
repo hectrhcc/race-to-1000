@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import Navbar from '../components/Navbar.astro';
 
 export interface Props {
   title?: string;
@@ -60,6 +61,7 @@ const fullImageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   </head>
   <body>
+    <Navbar />
     <slot />
   </body>
 </html>

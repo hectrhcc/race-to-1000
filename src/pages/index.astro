@@ -3,18 +3,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Stats from '../components/Stats.astro';
 import PlayerCard from '../components/PlayerCard.astro';
-import Ranking from '../components/Ranking.astro';
-import Timeline from '../components/Timeline.astro';
-import LegendsSection from '../components/LegendsSection.astro';
 import Footer from '../components/Footer.astro';
 
 import playersData from '../data/players.json';
-import historyData from '../data/history.json';
-import legendsData from '../data/legends.json';
-import type { Player, HistoryEntry } from '../types/player';
+import type { Player } from '../types/player';
 
 const players = playersData as Player[];
-const history = historyData as HistoryEntry[];
 
 // Sort by goals descending
 const sorted = [...players].sort((a, b) => b.goals - a.goals);
@@ -60,18 +54,18 @@ const lastUpdated = players.reduce((latest, p) =>
       </div>
     </section>
 
-    <!-- Ranking -->
+    <!-- Nav to ranking page -->
     <div class="container">
-      <Ranking players={players} />
+      <div class="next-section-nav">
+        <a href="/ranking" class="next-link">
+          <span>Ver clasificación completa</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </a>
+      </div>
     </div>
-
-    <!-- Timeline / History -->
-    <div class="container">
-      <Timeline players={players} history={history} />
-    </div>
-
-    <!-- Legends Section -->
-    <LegendsSection legends={legendsData} />
   </main>
 
   <!-- Footer -->
@@ -118,6 +112,43 @@ main {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1rem;
+}
+
+/* Next section nav */
+.next-section-nav {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 0 1rem;
+}
+
+.next-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.75rem 1.5rem;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  text-decoration: none;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+}
+
+.next-link:hover {
+  background: rgba(39, 39, 42, 0.6);
+  border-color: #3f3f46;
+  transform: translateY(-2px);
+}
+
+.next-link svg {
+  transition: transform 0.2s ease;
+  color: var(--color-gold-base);
+}
+
+.next-link:hover svg {
+  transform: translateX(3px);
 }
 
 @media (max-width: 640px) {

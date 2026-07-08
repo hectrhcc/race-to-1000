@@ -14,16 +14,17 @@ export interface Legend {
 
 export interface Props {
   legends: Legend[];
+  id?: string;
 }
 
-const { legends } = Astro.props;
+const { legends, id } = Astro.props;
 
 const TARGET = 1000;
 
 const sorted = [...legends].sort((a, b) => b.goals - a.goals);
 ---
 
-<section class="legends-section">
+<section class="legends-section" id={id}>
   <div class="container">
     <div class="legends-header">
       <span class="section-label">Leyendas</span>
@@ -134,6 +135,7 @@ const sorted = [...legends].sort((a, b) => b.goals - a.goals);
     radial-gradient(ellipse 50% 35% at 70% 70%, rgba(217, 119, 6, 0.03) 0%, transparent 50%);
   position: relative;
   overflow: hidden;
+  scroll-margin-top: 64px;
 }
 
 .legends-section::before {
