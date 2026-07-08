@@ -188,7 +188,7 @@
     "goals": 175,
     "position": "Delantero",
     "age": 27,
-    "image": "https://ui-avatars.com/api/?name=Lautaro%20Mart%C3%ADnez&size=200&background=27272a&color=f4f4f5&bold=true&format=svg",
+    "image": "/images/players/lautaro.jpg",
     "updatedAt": "2026-07-08"
   },
   {
@@ -200,7 +200,7 @@
     "goals": 165,
     "position": "Mediapunta",
     "age": 31,
-    "image": "https://ui-avatars.com/api/?name=Bruno%20Fernandes&size=200&background=27272a&color=f4f4f5&bold=true&format=svg",
+    "image": "/images/players/brunofernandes.jpg",
     "updatedAt": "2026-07-08"
   },
   {
@@ -212,7 +212,7 @@
     "goals": 165,
     "position": "Delantero",
     "age": 30,
-    "image": "https://ui-avatars.com/api/?name=Ollie%20Watkins&size=200&background=27272a&color=f4f4f5&bold=true&format=svg",
+    "image": "/images/players/watkins.jpg",
     "updatedAt": "2026-07-08"
   },
   {
