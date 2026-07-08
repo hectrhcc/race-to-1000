@@ -1,0 +1,18 @@
+{
+  "name": "GOAT Counter",
+  "short_name": "GOAT",
+  "description": "Track the most prolific active goal scorers in football history.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#09090b",
+  "theme_color": "#09090b",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["sports", "entertainment"]
+}

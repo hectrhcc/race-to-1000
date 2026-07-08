@@ -1,0 +1,255 @@
+---
+import type { Player } from '../types/player';
+
+export interface Props {
+  players: Player[];
+}
+
+const { players } = Astro.props;
+
+const TARGET = 1000;
+const sorted = [...players].sort((a, b) => b.goals - a.goals);
+
+const medals: Record<number, string> = { 0: '🥇', 1: '🥈', 2: '🥉' };
+---
+
+<section class="ranking-section">
+  <div class="section-header">
+    <span class="section-label">Clasificación</span>
+    <h2 class="section-title">Ranking Global</h2>
+    <p class="section-desc">Ordenado por goles oficiales totales (club + selección)</p>
+  </div>
+
+  <div class="ranking-list">
+    {sorted.map((player, i) => {
+      const pct = Math.min((player.goals / TARGET) * 100, 100);
+      const remaining = Math.max(TARGET - player.goals, 0);
+      const medal = medals[i];
+      return (
+        <div class="ranking-row animate-fade-up" style={`animation-delay: ${i * 0.04}s`}>
+          <!-- Position -->
+          <div class="rank-pos">
+            {medal
+              ? <span class="rank-medal">{medal}</span>
+              : <span class="rank-number tabular-nums">{i + 1}</span>
+            }
+          </div>
+
+          <!-- Photo -->
+          <img
+            src={player.image}
+            alt={player.name}
+            class="rank-img"
+            width="36"
+            height="36"
+            loading="lazy"
+            onerror={`this.onerror=null;this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(player.name)}&size=80&background=27272a&color=f4f4f5&bold=true&format=svg'`}
+          />
+
+          <!-- Name & Club -->
+          <div class="rank-identity">
+            <span class="rank-name">{player.name}</span>
+            <span class="rank-club">{player.countryFlag} {player.club}</span>
+          </div>
+
+          <!-- Mini bar -->
+          <div class="rank-bar-wrap">
+            <div class="rank-bar-track">
+              <div class="rank-bar-fill" style={`width: 0%`} data-width={pct}></div>
+            </div>
+            <span class="rank-pct tabular-nums">{pct.toFixed(0)}%</span>
+          </div>
+
+          <!-- Goals -->
+          <div class="rank-goals">
+            <span class="rank-goals-num tabular-nums">{player.goals.toLocaleString('es-ES')}</span>
+            <span class="rank-remaining">{remaining > 0 ? `${remaining.toLocaleString('es-ES')} restantes` : '✓ Meta'}</span>
+          </div>
+        </div>
+      );
+    })}
+  </div>
+</section>
+
+<style>
+.ranking-section {
+  padding: 4rem 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.section-header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 2rem;
+}
+
+.section-title {
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--color-text-primary);
+}
+
+.section-desc {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+}
+
+/* Ranking List */
+.ranking-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.ranking-row {
+  display: grid;
+  grid-template-columns: 44px 36px 1fr minmax(120px, 180px) 110px;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.875rem 1rem;
+  border-radius: 10px;
+  transition: background 0.15s ease;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.ranking-row:last-child { border-bottom: none; }
+
+.ranking-row:hover {
+  background: var(--color-bg-card);
+}
+
+/* Rank */
+.rank-pos {
+  width: 36px;
+  text-align: center;
+}
+
+.rank-medal { font-size: 1.3rem; line-height: 1; }
+
+.rank-number {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+/* Photo */
+.rank-img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  display: block;
+}
+
+/* Identity */
+.rank-identity {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.rank-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rank-club {
+  font-size: 0.73rem;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Mini Bar */
+.rank-bar-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rank-bar-track {
+  flex: 1;
+  height: 4px;
+  background: var(--color-border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.rank-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #16a34a, #22c55e);
+  border-radius: 999px;
+  transition: width 1s ease;
+}
+
+.rank-pct {
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  width: 34px;
+  text-align: right;
+}
+
+/* Goals */
+.rank-goals {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.rank-goals-num {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--color-text-primary);
+  letter-spacing: -0.03em;
+}
+
+.rank-remaining {
+  font-size: 0.68rem;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .ranking-row {
+    grid-template-columns: 36px 32px 1fr 80px;
+  }
+  .rank-bar-wrap { display: none; }
+}
+
+@media (max-width: 480px) {
+  .ranking-row {
+    grid-template-columns: 28px 28px 1fr 70px;
+    gap: 0.6rem;
+    padding: 0.75rem 0.5rem;
+  }
+  .rank-goals-num { font-size: 0.95rem; }
+}
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const fills = document.querySelectorAll<HTMLElement>('.rank-bar-fill[data-width]');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target as HTMLElement;
+          el.style.width = `${el.dataset.width}%`;
+          observer.unobserve(el);
+        }
+      });
+    }, { threshold: 0.1 });
+    fills.forEach(f => observer.observe(f));
+  });
+</script>

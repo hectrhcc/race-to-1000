@@ -1,0 +1,440 @@
+---
+import type { Player, HistoryEntry } from '../types/player';
+
+export interface Props {
+  players: Player[];
+  history: HistoryEntry[];
+}
+
+const { players, history } = Astro.props;
+
+// Sort history by date
+const sortedHistory = [...history].sort((a, b) => a.date.localeCompare(b.date));
+const latestEntry = sortedHistory[sortedHistory.length - 1];
+const previousEntry = sortedHistory[sortedHistory.length - 2];
+
+// Calculate goals scored in the last period
+const goalChanges: { id: string; name: string; country: string; flag: string; image: string; goals: number; delta: number }[] = [];
+
+if (latestEntry && previousEntry) {
+  players.forEach(player => {
+    const current = latestEntry.players[player.id] ?? player.goals;
+    const prev = previousEntry.players[player.id] ?? current;
+    const delta = current - prev;
+    goalChanges.push({
+      id: player.id,
+      name: player.name,
+      country: player.country,
+      flag: player.countryFlag,
+      image: player.image,
+      goals: current,
+      delta,
+    });
+  });
+}
+
+const topScorersRecent = [...goalChanges]
+  .sort((a, b) => b.delta - a.delta)
+  .slice(0, 5)
+  .filter(p => p.delta > 0);
+
+// Build chart data (last 6 entries, top 5 players by current goals)
+const top5Ids = [...players]
+  .sort((a, b) => b.goals - a.goals)
+  .slice(0, 5)
+  .map(p => p.id);
+
+const chartData = sortedHistory.map(entry => ({
+  date: entry.date,
+  players: top5Ids.reduce((acc, id) => {
+    acc[id] = entry.players[id] ?? 0;
+    return acc;
+  }, {} as Record<string, number>),
+}));
+
+const playerColors: Record<string, string> = {
+  [top5Ids[0] ?? '']: '#22c55e',
+  [top5Ids[1] ?? '']: '#3b82f6',
+  [top5Ids[2] ?? '']: '#f59e0b',
+  [top5Ids[3] ?? '']: '#ec4899',
+  [top5Ids[4] ?? '']: '#8b5cf6',
+};
+
+const playerNames = players.reduce((acc, p) => {
+  acc[p.id] = p.name.split(' ').pop() ?? p.name; // Last name for brevity
+  return acc;
+}, {} as Record<string, string>);
+---
+
+<section class="timeline-section">
+  <div class="section-header">
+    <span class="section-label">Historial</span>
+    <h2 class="section-title">Evolución de Goles</h2>
+    <p class="section-desc">
+      Seguimiento semanal del top 5 — el GitHub Action actualizará esto automáticamente cada día.
+    </p>
+  </div>
+
+  <div class="timeline-content">
+    <!-- Recent scorers -->
+    {topScorersRecent.length > 0 && (
+      <div class="recent-scorers">
+        <div class="subsection-label">🔥 Goles en el último período</div>
+        <div class="scorers-list">
+          {topScorersRecent.map(p => (
+            <div class="scorer-row">
+              <img
+                src={p.image}
+                alt={p.name}
+                class="scorer-img"
+                width="32"
+                height="32"
+                loading="lazy"
+                onerror={`this.onerror=null;this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(p.name)}&size=64&background=27272a&color=f4f4f5&bold=true&format=svg'`}
+              />
+              <span class="scorer-name">{p.name}</span>
+              <span class="scorer-flag">{p.flag}</span>
+              <div class="scorer-delta">
+                <span class="delta-badge">+{p.delta}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <!-- Mini Chart -->
+    <div class="chart-wrapper">
+      <div class="subsection-label">📈 Progreso acumulado — Top 5</div>
+      <div class="chart-legend">
+        {top5Ids.map(id => (
+          <div class="legend-item">
+            <span class="legend-dot" style={`background: ${playerColors[id]}`}></span>
+            <span class="legend-name">{playerNames[id]}</span>
+          </div>
+        ))}
+      </div>
+      <div class="mini-chart" id="timeline-chart" data-chart={JSON.stringify(chartData)} data-ids={JSON.stringify(top5Ids)} data-colors={JSON.stringify(playerColors)} data-names={JSON.stringify(playerNames)}>
+        <canvas id="goals-chart" width="800" height="300"></canvas>
+      </div>
+    </div>
+
+    <!-- Data table -->
+    <div class="history-table-wrap">
+      <div class="subsection-label">📋 Historial completo</div>
+      <div class="history-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              {top5Ids.map(id => <th>{playerNames[id]}</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {sortedHistory.map(entry => (
+              <tr>
+                <td class="date-cell">{new Date(entry.date).toLocaleDateString('es-ES', { day: 'numeric', month: 'short' })}</td>
+                {top5Ids.map(id => (
+                  <td class="goals-cell tabular-nums">{(entry.players[id] ?? '—').toLocaleString('es-ES')}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.timeline-section {
+  padding: 4rem 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.section-header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 2rem;
+}
+
+.section-title {
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--color-text-primary);
+}
+
+.section-desc {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  max-width: 500px;
+}
+
+.timeline-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Recent scorers */
+.recent-scorers {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: 1.25rem;
+}
+
+.subsection-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  letter-spacing: 0.04em;
+  margin-bottom: 1rem;
+}
+
+.scorers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.scorer-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.scorer-row:last-child { border-bottom: none; }
+
+.scorer-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-surface);
+}
+
+.scorer-name {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  flex: 1;
+}
+
+.scorer-flag { font-size: 0.9rem; }
+
+.delta-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.25);
+  color: var(--color-green-base);
+  font-size: 0.8rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Chart */
+.chart-wrapper {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: 1.25rem;
+}
+
+.chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.legend-name {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.mini-chart {
+  width: 100%;
+  overflow: hidden;
+}
+
+.mini-chart canvas {
+  width: 100% !important;
+  height: auto !important;
+}
+
+/* Table */
+.history-table-wrap {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: 1.25rem;
+  overflow-x: auto;
+}
+
+.history-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+
+.history-table th {
+  text-align: right;
+  padding: 0.5rem 0.75rem;
+  color: var(--color-text-muted);
+  font-weight: 600;
+  font-size: 0.75rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.history-table th:first-child { text-align: left; }
+
+.history-table td {
+  text-align: right;
+  padding: 0.5rem 0.75rem;
+  color: var(--color-text-secondary);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.history-table tr:last-child td { border-bottom: none; }
+
+.date-cell {
+  text-align: left !important;
+  color: var(--color-text-muted) !important;
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+.goals-cell {
+  color: var(--color-text-primary) !important;
+  font-weight: 600;
+}
+</style>
+
+<script>
+  // Simple canvas-based line chart (no external deps)
+  document.addEventListener('DOMContentLoaded', () => {
+    const chartEl = document.getElementById('timeline-chart') as HTMLElement | null;
+    const canvas = document.getElementById('goals-chart') as HTMLCanvasElement | null;
+    if (!chartEl || !canvas) return;
+
+    const chartData: Array<{date: string; players: Record<string, number>}> = JSON.parse(chartEl.dataset.chart ?? '[]');
+    const ids: string[] = JSON.parse(chartEl.dataset.ids ?? '[]');
+    const colors: Record<string, string> = JSON.parse(chartEl.dataset.colors ?? '{}');
+
+    if (chartData.length < 2) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const W = canvas.offsetWidth || 800;
+    const H = 300;
+    canvas.width = W;
+    canvas.height = H;
+
+    const padL = 60, padR = 20, padT = 20, padB = 40;
+    const plotW = W - padL - padR;
+    const plotH = H - padT - padB;
+
+    // Find data range
+    let minVal = Infinity, maxVal = -Infinity;
+    chartData.forEach(entry => {
+      ids.forEach(id => {
+        const v = entry.players[id] ?? 0;
+        if (v < minVal) minVal = v;
+        if (v > maxVal) maxVal = v;
+      });
+    });
+    const valRange = maxVal - minVal || 1;
+    minVal = Math.floor(minVal / 50) * 50;
+
+    const xStep = plotW / (chartData.length - 1);
+    const toX = (i: number) => padL + i * xStep;
+    const toY = (v: number) => padT + plotH - ((v - minVal) / (maxVal - minVal)) * plotH;
+
+    // Background
+    ctx.clearRect(0, 0, W, H);
+
+    // Grid lines
+    ctx.strokeStyle = 'rgba(39, 39, 42, 0.6)';
+    ctx.lineWidth = 1;
+    for (let i = 0; i <= 4; i++) {
+      const y = padT + (plotH / 4) * i;
+      ctx.beginPath();
+      ctx.moveTo(padL, y);
+      ctx.lineTo(W - padR, y);
+      ctx.stroke();
+      const val = Math.round(maxVal - ((maxVal - minVal) / 4) * i);
+      ctx.fillStyle = 'rgba(113, 113, 122, 0.8)';
+      ctx.font = '10px Inter, system-ui, sans-serif';
+      ctx.textAlign = 'right';
+      ctx.fillText(val.toLocaleString('es-ES'), padL - 6, y + 4);
+    }
+
+    // Date labels
+    ctx.fillStyle = 'rgba(113, 113, 122, 0.8)';
+    ctx.font = '10px Inter, system-ui, sans-serif';
+    ctx.textAlign = 'center';
+    chartData.forEach((entry, i) => {
+      const x = toX(i);
+      const d = new Date(entry.date);
+      const label = d.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' });
+      ctx.fillText(label, x, H - 8);
+    });
+
+    // Lines
+    ids.forEach(id => {
+      const color = colors[id] ?? '#22c55e';
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 2.5;
+      ctx.lineJoin = 'round';
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+
+      chartData.forEach((entry, i) => {
+        const v = entry.players[id] ?? 0;
+        const x = toX(i);
+        const y = toY(v);
+        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      });
+      ctx.stroke();
+
+      // Dots
+      chartData.forEach((entry, i) => {
+        const v = entry.players[id] ?? 0;
+        const x = toX(i);
+        const y = toY(v);
+        ctx.beginPath();
+        ctx.arc(x, y, 3.5, 0, Math.PI * 2);
+        ctx.fillStyle = color;
+        ctx.fill();
+        ctx.strokeStyle = '#09090b';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+      });
+    });
+  });
+</script>

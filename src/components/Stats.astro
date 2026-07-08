@@ -1,0 +1,187 @@
+---
+import type { Player } from '../types/player';
+
+export interface Props {
+  players: Player[];
+  totalGoals: number;
+  lastUpdated: string;
+}
+
+const { players, totalGoals, lastUpdated } = Astro.props;
+
+const TARGET_PER_PLAYER = 1000;
+const sorted = [...players].sort((a, b) => b.goals - a.goals);
+const leader = sorted[0]!;
+const closestToTarget = sorted.reduce((prev, curr) =>
+  Math.abs(curr.goals - TARGET_PER_PLAYER) < Math.abs(prev.goals - TARGET_PER_PLAYER) ? curr : prev
+);
+
+const avgGoals = Math.round(totalGoals / players.length);
+const over500 = players.filter(p => p.goals >= 500).length;
+const over900 = players.filter(p => p.goals >= 900).length;
+
+const formattedDate = new Date(lastUpdated).toLocaleDateString('es-ES', {
+  weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',
+});
+---
+
+<section class="stats-section">
+  <div class="section-header">
+    <span class="section-label">Estadísticas</span>
+    <h2 class="section-title">En números</h2>
+  </div>
+
+  <div class="stats-grid">
+    <!-- Total Goals -->
+    <div class="stat-card stat-card--highlight">
+      <div class="stat-icon">⚽</div>
+      <div class="stat-body">
+        <span class="stat-value tabular-nums gradient-text-green"
+          id="stat-total"
+          data-target={totalGoals}>{totalGoals.toLocaleString('es-ES')}</span>
+        <span class="stat-name">Goles totales entre todos</span>
+        <span class="stat-sub">{players.length} jugadores rastreados</span>
+      </div>
+    </div>
+
+    <!-- Leader -->
+    <div class="stat-card">
+      <div class="stat-icon">🏆</div>
+      <div class="stat-body">
+        <span class="stat-value tabular-nums">{leader.goals.toLocaleString('es-ES')}</span>
+        <span class="stat-name">Goles del líder</span>
+        <span class="stat-sub">{leader.name}</span>
+      </div>
+    </div>
+
+    <!-- Average -->
+    <div class="stat-card">
+      <div class="stat-icon">📊</div>
+      <div class="stat-body">
+        <span class="stat-value tabular-nums">{avgGoals.toLocaleString('es-ES')}</span>
+        <span class="stat-name">Promedio por jugador</span>
+        <span class="stat-sub">Media de goles oficiales</span>
+      </div>
+    </div>
+
+    <!-- Over 500 -->
+    <div class="stat-card">
+      <div class="stat-icon">🎯</div>
+      <div class="stat-body">
+        <span class="stat-value tabular-nums">{over500}</span>
+        <span class="stat-name">Jugadores con +500 goles</span>
+        <span class="stat-sub">{((over500 / players.length) * 100).toFixed(0)}% del ranking</span>
+      </div>
+    </div>
+
+    <!-- Over 900 -->
+    <div class="stat-card">
+      <div class="stat-icon">🌟</div>
+      <div class="stat-body">
+        <span class="stat-value tabular-nums">{over900}</span>
+        <span class="stat-name">Jugadores con +900 goles</span>
+        <span class="stat-sub">Los más cercanos a 1.000</span>
+      </div>
+    </div>
+
+    <!-- Last Updated -->
+    <div class="stat-card">
+      <div class="stat-icon">🕐</div>
+      <div class="stat-body">
+        <span class="stat-value stat-value--sm">{new Date(lastUpdated).toLocaleDateString('es-ES', { day: 'numeric', month: 'short' })}</span>
+        <span class="stat-name">Última actualización</span>
+        <span class="stat-sub capitalize">{formattedDate}</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.stats-section {
+  padding: 4rem 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.section-header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 1.75rem;
+}
+
+.section-title {
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--color-text-primary);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.stat-card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.stat-card:hover {
+  border-color: #3f3f46;
+  transform: translateY(-2px);
+}
+
+.stat-card--highlight {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.04) 0%, rgba(24, 24, 27, 1) 60%);
+  border-color: rgba(34, 197, 94, 0.2);
+}
+
+.stat-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+.stat-body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.stat-value {
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: var(--color-text-primary);
+  line-height: 1;
+}
+
+.stat-value--sm {
+  font-size: 1.4rem;
+}
+
+.stat-name {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.stat-sub {
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.capitalize { text-transform: capitalize; }
+</style>

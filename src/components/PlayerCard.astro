@@ -1,0 +1,263 @@
+---
+import type { Player } from '../types/player';
+import ProgressBar from './ProgressBar.astro';
+
+export interface Props {
+  player: Player;
+  rank: number;
+}
+
+const { player, rank } = Astro.props;
+
+const TARGET = 1000;
+const percentage = (player.goals / TARGET) * 100;
+const remaining = Math.max(TARGET - player.goals, 0);
+
+// Rank medal
+const medals: Record<number, string> = { 1: '🥇', 2: '🥈', 3: '🥉' };
+const medal = medals[rank];
+
+// Format updated date
+const updatedDate = new Date(player.updatedAt).toLocaleDateString('es-ES', {
+  day: 'numeric',
+  month: 'short',
+});
+
+// Image fallback URL (initials-based avatar)
+const fallbackSrc = `https://ui-avatars.com/api/?name=${encodeURIComponent(player.name)}&size=200&background=27272a&color=f4f4f5&bold=true&format=svg`;
+---
+
+<article class="player-card animate-fade-up" data-player-id={player.id}>
+  <!-- Rank Badge -->
+  <div class="rank-badge" class:list={[{ 'rank-top3': rank <= 3 }]}>
+    {medal ? <span class="medal">{medal}</span> : <span class="rank-num">#{rank}</span>}
+  </div>
+
+  <!-- Player Image -->
+  <div class="player-img-wrap">
+    <img
+      src={player.image}
+      alt={`Foto de ${player.name}`}
+      class="player-img"
+      width="96"
+      height="96"
+      loading="lazy"
+      decoding="async"
+      onerror={`this.onerror=null;this.src='${fallbackSrc}'`}
+    />
+    <div class="img-ring"></div>
+  </div>
+
+  <!-- Player Info -->
+  <div class="player-info">
+    <h2 class="player-name">{player.name}</h2>
+
+    <div class="player-meta">
+      <span class="player-club">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        {player.club}
+      </span>
+      <span class="player-country">
+        <span class="flag">{player.countryFlag}</span>
+        {player.country}
+      </span>
+    </div>
+
+    <div class="player-pos-age">
+      <span class="badge">{player.position}</span>
+      <span class="badge">{player.age} años</span>
+    </div>
+  </div>
+
+  <!-- Goals Number -->
+  <div class="goals-display">
+    <span class="goals-num tabular-nums">{player.goals.toLocaleString('es-ES')}</span>
+    <span class="goals-label">goles oficiales</span>
+  </div>
+
+  <!-- Progress Bar -->
+  <div class="card-progress">
+    <ProgressBar
+      percentage={percentage}
+      remaining={remaining}
+      goals={player.goals}
+    />
+  </div>
+
+  <!-- Footer -->
+  <div class="card-footer">
+    <span class="updated-label">
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <circle cx="12" cy="12" r="10"/>
+        <polyline points="12 6 12 12 16 14"/>
+      </svg>
+      {updatedDate}
+    </span>
+  </div>
+</article>
+
+<style>
+.player-card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+  cursor: default;
+}
+
+.player-card:hover {
+  transform: translateY(-5px);
+  border-color: #3f3f46;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(34, 197, 94, 0.05);
+}
+
+/* Rank Badge */
+.rank-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+}
+
+.rank-badge.rank-top3 {
+  background: transparent;
+  border: none;
+}
+
+.medal { font-size: 1.2rem; line-height: 1; }
+.rank-num { font-size: 0.72rem; font-weight: 700; color: var(--color-text-muted); }
+
+/* Image */
+.player-img-wrap {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+}
+
+.player-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  background: var(--color-bg-surface);
+  border: 2px solid var(--color-border);
+  display: block;
+}
+
+.img-ring {
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(34, 197, 94, 0.15);
+  pointer-events: none;
+}
+
+/* Info */
+.player-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.player-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.player-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.player-club,
+.player-country {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.78rem;
+  color: var(--color-text-secondary);
+}
+
+.player-club svg,
+.player-country svg {
+  opacity: 0.5;
+}
+
+.flag { font-size: 0.9rem; }
+
+.player-pos-age {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* Goals Number */
+.goals-display {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.goals-num {
+  font-size: 2.4rem;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  background: linear-gradient(135deg, #f4f4f5 30%, #71717a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.goals-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+/* Progress */
+.card-progress {
+  margin-top: 4px;
+}
+
+/* Footer */
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-top: 4px;
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.updated-label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+}
+</style>

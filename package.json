@@ -1,0 +1,21 @@
+{
+  "name": "goat-counter",
+  "type": "module",
+  "version": "0.1.0",
+  "description": "Track the most prolific active goal scorers in football history — the race to 1000.",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.2.1",
+    "astro": "^7.0.6"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.11",
+    "tailwindcss": "^4.1.11"
+  }
+}

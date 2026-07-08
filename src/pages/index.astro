@@ -1,0 +1,121 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Stats from '../components/Stats.astro';
+import PlayerCard from '../components/PlayerCard.astro';
+import Ranking from '../components/Ranking.astro';
+import Timeline from '../components/Timeline.astro';
+import Footer from '../components/Footer.astro';
+
+import playersData from '../data/players.json';
+import historyData from '../data/history.json';
+import type { Player, HistoryEntry } from '../types/player';
+
+const players = playersData as Player[];
+const history = historyData as HistoryEntry[];
+
+// Sort by goals descending
+const sorted = [...players].sort((a, b) => b.goals - a.goals);
+const totalGoals = players.reduce((sum, p) => sum + p.goals, 0);
+const lastUpdated = players.reduce((latest, p) =>
+  p.updatedAt > latest ? p.updatedAt : latest, '');
+---
+
+<BaseLayout
+  title="GOAT Counter — Race to 1,000 Goals"
+  description={`Sigue los goles oficiales de los ${players.length} mejores goleadores activos del mundo. Ranking en tiempo real, estadísticas y la carrera hacia los 1000 goles.`}
+>
+  <!-- Header -->
+  <Header
+    totalGoals={totalGoals}
+    playerCount={players.length}
+    lastUpdated={lastUpdated}
+  />
+
+  <main>
+    <!-- Stats Overview -->
+    <div class="container">
+      <Stats players={players} totalGoals={totalGoals} lastUpdated={lastUpdated} />
+    </div>
+
+    <!-- Player Cards Grid -->
+    <section class="players-section">
+      <div class="container">
+        <div class="players-section-header">
+          <span class="section-label">Goleadores</span>
+          <h2 class="players-title">Los 20 más letales del planeta</h2>
+          <p class="players-subtitle">
+            Ordenados por total de goles oficiales (club + selección nacional).
+            La barra verde indica el progreso hacia 1.000 goles.
+          </p>
+        </div>
+
+        <div class="players-grid stagger-children">
+          {sorted.map((player, index) => (
+            <PlayerCard player={player} rank={index + 1} />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Ranking -->
+    <div class="container">
+      <Ranking players={players} />
+    </div>
+
+    <!-- Timeline / History -->
+    <div class="container">
+      <Timeline players={players} history={history} />
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <Footer lastUpdated={lastUpdated} />
+</BaseLayout>
+
+<style>
+main {
+  padding-bottom: 2rem;
+}
+
+/* Players Section */
+.players-section {
+  padding: 4rem 0;
+  border-top: 1px solid var(--color-border);
+  background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(34,197,94,0.03) 0%, transparent 60%);
+}
+
+.players-section-header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 2rem;
+}
+
+.players-title {
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--color-text-primary);
+}
+
+.players-subtitle {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  max-width: 560px;
+  line-height: 1.6;
+}
+
+/* Grid */
+.players-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+@media (max-width: 640px) {
+  .players-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
