@@ -48,6 +48,12 @@ async function main() {
     }
 
     let playersData = JSON.parse(fs.readFileSync(PLAYERS_JSON_PATH, 'utf-8'));
+    const now = new Date().toISOString();
+
+    if (Array.isArray(playersData)) {
+        playersData.forEach(player => {
+        player.lastChecked = now;
+    });}
     let historyData = [];
     
     if (fs.existsSync(HISTORY_JSON_PATH)) {
@@ -76,7 +82,7 @@ async function main() {
         currentGoals = playersData[key].goals || 0;
       }
 
-      if (scrapedGoals && scrapedGoals >= currentGoals) {
+      if (scrapedGoals !== null && scrapedGoals >= currentGoals) {
         if (scrapedGoals > currentGoals) {
           if (isArray && playerRef) {
             playerRef.goals = scrapedGoals;
@@ -95,8 +101,7 @@ async function main() {
       }
     }
 
-    // 3. Guardar cambios si los hubiera
-    if (updated) {
+    // 3. Guardar cambios siempre porque siempre cambia la fecha
       fs.writeFileSync(PLAYERS_JSON_PATH, JSON.stringify(playersData, null, 2));
 
       const snapshot = { date: today, scores: {} };
@@ -116,9 +121,7 @@ async function main() {
       fs.writeFileSync(HISTORY_JSON_PATH, JSON.stringify(historyData, null, 2));
 
       console.log('Archivos JSON actualizados con éxito.');
-    } else {
-      console.log('No se detectaron cambios en los marcadores.');
-    }
+    
 
   } catch (err) {
     console.error('Error crítico en la ejecución del script:', err);
