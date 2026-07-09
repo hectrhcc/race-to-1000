@@ -46,11 +46,11 @@ jobs:
         run: |
           git diff --exit-code src/data/ || echo "changed=true" >> $GITHUB_OUTPUT
 
-      - name: Commit and push if data changed
-        if: steps.diff.outputs.changed == 'true' && inputs.dry_run != true
+      - name: Commit and push
+        if: inputs.dry_run != true
         run: |
           git config --global user.name "hectrhcc"
-          git config --global user.email "hcontrerascorvacho@gmail.com"
+          git config --global user.email "95552068+hectrhcc@users.noreply.github.com"
           git add src/data/players.json src/data/history.json
           git commit -m "chore(data): update player goals $(date -u +%Y-%m-%d)"
           git push
