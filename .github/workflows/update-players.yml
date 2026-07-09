@@ -49,8 +49,8 @@ jobs:
       - name: Commit and push if data changed
         if: steps.diff.outputs.changed == 'true' && inputs.dry_run != true
         run: |
-          git config user.name "Race to 1000 Bot"
-          git config user.email "bot@race-to-1000.vercel.app"
+          git config --global user.name "hectrhcc"
+          git config --global user.email "hcontrerascorvacho@gmail.com"
           git add src/data/players.json src/data/history.json
           git commit -m "chore(data): update player goals $(date -u +%Y-%m-%d)"
           git push
