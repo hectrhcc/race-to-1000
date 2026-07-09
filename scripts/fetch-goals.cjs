@@ -104,15 +104,15 @@ async function main() {
     // 3. Guardar cambios siempre porque siempre cambia la fecha
       fs.writeFileSync(PLAYERS_JSON_PATH, JSON.stringify(playersData, null, 2));
 
-      const snapshot = { date: today, scores: {} };
+      const snapshot = { date: today, players: {} };
       if (isArray) {
         playersData.forEach(p => {
           const id = p.id || p.name.toLowerCase().split(' ')[0];
-          snapshot.scores[id] = p.goals;
+          snapshot.players[id] = p.goals;
         });
       } else {
         Object.keys(playersData).forEach(key => {
-          snapshot.scores[key] = playersData[key].goals;
+          snapshot.players[key] = playersData[key].goals;
         });
       }
 
