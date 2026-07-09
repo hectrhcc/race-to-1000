@@ -9,7 +9,8 @@
     "position": "Delantero",
     "age": 41,
     "image": "/images/players/ronaldo.jpg",
-    "updatedAt": "2026-07-08"
+    "updatedAt": "2026-07-08",
+    "lastChecked": "2026-07-09T03:41:44.455Z"
   },
   {
     "id": "messi",
@@ -21,7 +22,8 @@
     "position": "Delantero",
     "age": 39,
     "image": "/images/players/messi.jpg",
-    "updatedAt": "2026-07-08"
+    "updatedAt": "2026-07-08",
+    "lastChecked": "2026-07-09T03:41:44.455Z"
   },
   {
     "id": "lewandowski",
@@ -33,7 +35,8 @@
     "position": "Delantero",
     "age": 37,
     "image": "/images/players/lewandowski.jpg",
-    "updatedAt": "2026-07-08"
+    "updatedAt": "2026-07-08",
+    "lastChecked": "2026-07-09T03:41:44.455Z"
   },
   {
     "id": "kane",
@@ -45,7 +48,8 @@
     "position": "Delantero",
     "age": 32,
     "image": "/images/players/kane.jpg",
-    "updatedAt": "2026-07-08"
+    "updatedAt": "2026-07-08",
+    "lastChecked": "2026-07-09T03:41:44.455Z"
   },
   {
     "id": "neymar",
@@ -57,7 +61,8 @@
     "position": "Extremo",
     "age": 34,
     "image": "/images/players/neymar.jpg",
-    "updatedAt": "2026-07-08"
+    "updatedAt": "2026-07-08",
+    "lastChecked": "2026-07-09T03:41:44.455Z"
   },
   {
     "id": "salah",
@@ -69,7 +74,8 @@
     "position": "Extremo",
     "age": 34,
     "image": "/images/players/salah.jpg",
-    "updatedAt": "2026-07-08"
+    "updatedAt": "2026-07-08",
+    "lastChecked": "2026-07-09T03:41:44.455Z"
   },
   {
     "id": "benzema",
@@ -81,7 +87,8 @@
     "position": "Delantero",
     "age": 38,
     "image": "/images/players/benzema.jpg",
-    "updatedAt": "2026-07-08"
+    "updatedAt": "2026-07-08",
+    "lastChecked": "2026-07-09T03:41:44.455Z"
   },
   {
     "id": "mbappe",
@@ -93,7 +100,8 @@
     "position": "Delantero",
     "age": 27,
     "image": "/images/players/mbappe.jpg",
-    "updatedAt": "2026-07-08"
+    "updatedAt": "2026-07-08",
+    "lastChecked": "2026-07-09T03:41:44.455Z"
   },
   {
     "id": "griezmann",
@@ -105,7 +113,8 @@
     "position": "Mediapunta",
     "age": 35,
     "image": "/images/players/griezmann.jpg",
-    "updatedAt": "2026-07-08"
+    "updatedAt": "2026-07-08",
+    "lastChecked": "2026-07-09T03:41:44.455Z"
   },
   {
     "id": "mane",
@@ -117,7 +126,8 @@
     "position": "Extremo",
     "age": 34,
     "image": "/images/players/mane.jpg",
-    "updatedAt": "2026-07-08"
+    "updatedAt": "2026-07-08",
+    "lastChecked": "2026-07-09T03:41:44.455Z"
   },
   {
     "id": "lukaku",
@@ -129,7 +139,8 @@
     "position": "Delantero",
     "age": 31,
     "image": "/images/players/lukaku.jpg",
-    "updatedAt": "2026-07-08"
+    "updatedAt": "2026-07-08",
+    "lastChecked": "2026-07-09T03:41:44.455Z"
   },
   {
     "id": "haaland",
@@ -141,7 +152,8 @@
     "position": "Delantero",
     "age": 25,
     "image": "/images/players/haaland.jpg",
-    "updatedAt": "2026-07-08"
+    "updatedAt": "2026-07-08",
+    "lastChecked": "2026-07-09T03:41:44.455Z"
   },
   {
     "id": "son",
@@ -153,7 +165,8 @@
     "position": "Extremo",
     "age": 33,
     "image": "/images/players/son.jpg",
-    "updatedAt": "2026-07-08"
+    "updatedAt": "2026-07-08",
+    "lastChecked": "2026-07-09T03:41:44.455Z"
   },
   {
     "id": "dybala",
@@ -165,7 +178,8 @@
     "position": "Mediapunta",
     "age": 32,
     "image": "/images/players/dybala.jpg",
-    "updatedAt": "2026-07-08"
+    "updatedAt": "2026-07-08",
+    "lastChecked": "2026-07-09T03:41:44.455Z"
   },
   {
     "id": "vinicius",
@@ -177,7 +191,8 @@
     "position": "Extremo",
     "age": 24,
     "image": "/images/players/vinicius.jpg",
-    "updatedAt": "2026-07-08"
+    "updatedAt": "2026-07-08",
+    "lastChecked": "2026-07-09T03:41:44.455Z"
   },
   {
     "id": "lautaro",
@@ -189,7 +204,8 @@
     "position": "Delantero",
     "age": 27,
     "image": "/images/players/lautaro.jpg",
-    "updatedAt": "2026-07-08"
+    "updatedAt": "2026-07-08",
+    "lastChecked": "2026-07-09T03:41:44.455Z"
   },
   {
     "id": "brunofernandes",
@@ -201,7 +217,8 @@
     "position": "Mediapunta",
     "age": 31,
     "image": "/images/players/brunofernandes.jpg",
-    "updatedAt": "2026-07-08"
+    "updatedAt": "2026-07-08",
+    "lastChecked": "2026-07-09T03:41:44.455Z"
   },
   {
     "id": "watkins",
@@ -213,7 +230,8 @@
     "position": "Delantero",
     "age": 30,
     "image": "/images/players/watkins.jpg",
-    "updatedAt": "2026-07-08"
+    "updatedAt": "2026-07-08",
+    "lastChecked": "2026-07-09T03:41:44.455Z"
   },
   {
     "id": "rashford",
@@ -225,7 +243,8 @@
     "position": "Extremo",
     "age": 28,
     "image": "/images/players/rashford.jpg",
-    "updatedAt": "2026-07-08"
+    "updatedAt": "2026-07-08",
+    "lastChecked": "2026-07-09T03:41:44.455Z"
   },
   {
     "id": "saka",
@@ -237,6 +256,7 @@
     "position": "Extremo",
     "age": 24,
     "image": "/images/players/saka.jpg",
-    "updatedAt": "2026-07-08"
+    "updatedAt": "2026-07-08",
+    "lastChecked": "2026-07-09T03:41:44.455Z"
   }
 ]
