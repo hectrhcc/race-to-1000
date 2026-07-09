@@ -13,8 +13,9 @@ export interface Player {
 }
 
 export interface HistoryEntry {
-  date: string;
-  players: Record<string, number>;
+  date?: string;
+  players?: Record<string, number> | null;
+  scores?: Record<string, number> | null;
 }
 
 export interface PlayerWithRank extends Player {

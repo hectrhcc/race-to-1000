@@ -8,49 +8,68 @@ export interface Props {
 
 const { players, history } = Astro.props;
 
+const safePlayers = Array.isArray(players) ? players : [];
+const safeHistory = Array.isArray(history) ? history : [];
+
+const getEntryPlayers = (entry: HistoryEntry | null | undefined) => entry?.players ?? entry?.scores ?? {};
+
+const formatGoalValue = (value: number | null | undefined) => {
+  if (typeof value === 'number' && Number.isFinite(value)) {
+    return value.toLocaleString('es-ES');
+  }
+
+  return '—';
+};
+
 // Sort history by date
-const sortedHistory = [...history].sort((a, b) => a.date.localeCompare(b.date));
+const sortedHistory = [...safeHistory].sort((a, b) => (a?.date ?? '').localeCompare(b?.date ?? ''));
 const latestEntry = sortedHistory[sortedHistory.length - 1];
 const previousEntry = sortedHistory[sortedHistory.length - 2];
+const latestEntryPlayers = getEntryPlayers(latestEntry);
+const previousEntryPlayers = getEntryPlayers(previousEntry);
 
 // Calculate goals scored in the last period
 const goalChanges: { id: string; name: string; country: string; flag: string; image: string; goals: number; delta: number }[] = [];
 
-if (latestEntry && previousEntry) {
-  players.forEach(player => {
-    const current = latestEntry.players[player.id] ?? player.goals;
-    const prev = previousEntry.players[player.id] ?? current;
-    const delta = current - prev;
-    goalChanges.push({
-      id: player.id,
-      name: player.name,
-      country: player.country,
-      flag: player.countryFlag,
-      image: player.image,
-      goals: current,
-      delta,
-    });
+safePlayers.forEach(player => {
+  const playerId = player?.id ?? '';
+  const current = latestEntryPlayers[playerId] ?? player?.goals ?? 0;
+  const prev = previousEntryPlayers[playerId] ?? current;
+  const delta = current - prev;
+
+  goalChanges.push({
+    id: playerId,
+    name: player?.name ?? '',
+    country: player?.country ?? '',
+    flag: player?.countryFlag ?? '',
+    image: player?.image ?? '',
+    goals: current,
+    delta,
   });
-}
+});
 
 const topScorersRecent = [...goalChanges]
   .sort((a, b) => b.delta - a.delta)
   .slice(0, 5)
   .filter(p => p.delta > 0);
 
-// Build chart data (last 6 entries, top 5 players by current goals)
-const top5Ids = [...players]
-  .sort((a, b) => b.goals - a.goals)
+// Build chart data (top 5 players by current goals)
+const top5Ids = [...safePlayers]
+  .sort((a, b) => (b?.goals ?? 0) - (a?.goals ?? 0))
   .slice(0, 5)
-  .map(p => p.id);
+  .map(p => p?.id ?? '');
 
-const chartData = sortedHistory.map(entry => ({
-  date: entry.date,
-  players: top5Ids.reduce((acc, id) => {
-    acc[id] = entry.players[id] ?? 0;
-    return acc;
-  }, {} as Record<string, number>),
-}));
+const chartData = sortedHistory.map(entry => {
+  const entryPlayers = getEntryPlayers(entry);
+
+  return {
+    date: entry?.date ?? '',
+    players: top5Ids.reduce((acc, id) => {
+      acc[id] = entryPlayers[id] ?? 0;
+      return acc;
+    }, {} as Record<string, number>),
+  };
+});
 
 const playerColors: Record<string, string> = {
   [top5Ids[0] ?? '']: '#22c55e',
@@ -60,8 +79,10 @@ const playerColors: Record<string, string> = {
   [top5Ids[4] ?? '']: '#8b5cf6',
 };
 
-const playerNames = players.reduce((acc, p) => {
-  acc[p.id] = p.name.split(' ').pop() ?? p.name; // Last name for brevity
+const playerNames = safePlayers.reduce((acc, p) => {
+  const playerId = p?.id ?? '';
+  const name = p?.name ?? '';
+  acc[playerId] = name.split(' ').pop() ?? name;
   return acc;
 }, {} as Record<string, string>);
 ---
@@ -133,9 +154,9 @@ const playerNames = players.reduce((acc, p) => {
           <tbody>
             {sortedHistory.map(entry => (
               <tr>
-                <td class="date-cell">{new Date(entry.date).toLocaleDateString('es-ES', { day: 'numeric', month: 'short' })}</td>
+                <td class="date-cell">{new Date(entry?.date ?? '').toLocaleDateString('es-ES', { day: 'numeric', month: 'short' })}</td>
                 {top5Ids.map(id => (
-                  <td class="goals-cell tabular-nums">{(entry.players[id] ?? '—').toLocaleString('es-ES')}</td>
+                  <td class="goals-cell tabular-nums">{formatGoalValue(entry?.players?.[id] ?? entry?.scores?.[id])}</td>
                 ))}
               </tr>
             ))}
@@ -363,7 +384,7 @@ const playerNames = players.reduce((acc, p) => {
     let minVal = Infinity, maxVal = -Infinity;
     chartData.forEach(entry => {
       ids.forEach(id => {
-        const v = entry.players[id] ?? 0;
+        const v = entry?.players?.[id] ?? 0;
         if (v < minVal) minVal = v;
         if (v > maxVal) maxVal = v;
       });
@@ -400,7 +421,7 @@ const playerNames = players.reduce((acc, p) => {
     ctx.textAlign = 'center';
     chartData.forEach((entry, i) => {
       const x = toX(i);
-      const d = new Date(entry.date);
+      const d = new Date(entry?.date ?? '');
       const label = d.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' });
       ctx.fillText(label, x, H - 8);
     });
@@ -415,7 +436,7 @@ const playerNames = players.reduce((acc, p) => {
       ctx.beginPath();
 
       chartData.forEach((entry, i) => {
-        const v = entry.players[id] ?? 0;
+        const v = entry?.players?.[id] ?? 0;
         const x = toX(i);
         const y = toY(v);
         if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
@@ -424,7 +445,7 @@ const playerNames = players.reduce((acc, p) => {
 
       // Dots
       chartData.forEach((entry, i) => {
-        const v = entry.players[id] ?? 0;
+        const v = entry?.players?.[id] ?? 0;
         const x = toX(i);
         const y = toY(v);
         ctx.beginPath();
