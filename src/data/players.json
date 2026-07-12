@@ -10,7 +10,7 @@
     "age": 41,
     "image": "/images/players/ronaldo.jpg",
     "updatedAt": "2026-07-08",
-    "lastChecked": "2026-07-11T07:45:00.008Z"
+    "lastChecked": "2026-07-12T08:06:39.736Z"
   },
   {
     "id": "messi",
@@ -23,7 +23,7 @@
     "age": 39,
     "image": "/images/players/messi.jpg",
     "updatedAt": "2026-07-08",
-    "lastChecked": "2026-07-11T07:45:00.008Z"
+    "lastChecked": "2026-07-12T08:06:39.736Z"
   },
   {
     "id": "lewandowski",
@@ -36,7 +36,7 @@
     "age": 37,
     "image": "/images/players/lewandowski.jpg",
     "updatedAt": "2026-07-08",
-    "lastChecked": "2026-07-11T07:45:00.008Z"
+    "lastChecked": "2026-07-12T08:06:39.736Z"
   },
   {
     "id": "kane",
@@ -49,7 +49,7 @@
     "age": 32,
     "image": "/images/players/kane.jpg",
     "updatedAt": "2026-07-08",
-    "lastChecked": "2026-07-11T07:45:00.008Z"
+    "lastChecked": "2026-07-12T08:06:39.736Z"
   },
   {
     "id": "neymar",
@@ -62,7 +62,7 @@
     "age": 34,
     "image": "/images/players/neymar.jpg",
     "updatedAt": "2026-07-08",
-    "lastChecked": "2026-07-11T07:45:00.008Z"
+    "lastChecked": "2026-07-12T08:06:39.736Z"
   },
   {
     "id": "salah",
@@ -75,7 +75,7 @@
     "age": 34,
     "image": "/images/players/salah.jpg",
     "updatedAt": "2026-07-08",
-    "lastChecked": "2026-07-11T07:45:00.008Z"
+    "lastChecked": "2026-07-12T08:06:39.736Z"
   },
   {
     "id": "benzema",
@@ -88,7 +88,7 @@
     "age": 38,
     "image": "/images/players/benzema.jpg",
     "updatedAt": "2026-07-08",
-    "lastChecked": "2026-07-11T07:45:00.008Z"
+    "lastChecked": "2026-07-12T08:06:39.736Z"
   },
   {
     "id": "mbappe",
@@ -101,7 +101,7 @@
     "age": 27,
     "image": "/images/players/mbappe.jpg",
     "updatedAt": "2026-07-08",
-    "lastChecked": "2026-07-11T07:45:00.008Z"
+    "lastChecked": "2026-07-12T08:06:39.736Z"
   },
   {
     "id": "griezmann",
@@ -114,7 +114,7 @@
     "age": 35,
     "image": "/images/players/griezmann.jpg",
     "updatedAt": "2026-07-08",
-    "lastChecked": "2026-07-11T07:45:00.008Z"
+    "lastChecked": "2026-07-12T08:06:39.736Z"
   },
   {
     "id": "mane",
@@ -127,7 +127,7 @@
     "age": 34,
     "image": "/images/players/mane.jpg",
     "updatedAt": "2026-07-08",
-    "lastChecked": "2026-07-11T07:45:00.008Z"
+    "lastChecked": "2026-07-12T08:06:39.736Z"
   },
   {
     "id": "lukaku",
@@ -140,7 +140,7 @@
     "age": 31,
     "image": "/images/players/lukaku.jpg",
     "updatedAt": "2026-07-08",
-    "lastChecked": "2026-07-11T07:45:00.008Z"
+    "lastChecked": "2026-07-12T08:06:39.736Z"
   },
   {
     "id": "haaland",
@@ -153,7 +153,7 @@
     "age": 25,
     "image": "/images/players/haaland.jpg",
     "updatedAt": "2026-07-08",
-    "lastChecked": "2026-07-11T07:45:00.008Z"
+    "lastChecked": "2026-07-12T08:06:39.736Z"
   },
   {
     "id": "son",
@@ -166,7 +166,7 @@
     "age": 33,
     "image": "/images/players/son.jpg",
     "updatedAt": "2026-07-08",
-    "lastChecked": "2026-07-11T07:45:00.008Z"
+    "lastChecked": "2026-07-12T08:06:39.736Z"
   },
   {
     "id": "dybala",
@@ -179,7 +179,7 @@
     "age": 32,
     "image": "/images/players/dybala.jpg",
     "updatedAt": "2026-07-08",
-    "lastChecked": "2026-07-11T07:45:00.008Z"
+    "lastChecked": "2026-07-12T08:06:39.736Z"
   },
   {
     "id": "vinicius",
@@ -192,7 +192,7 @@
     "age": 24,
     "image": "/images/players/vinicius.jpg",
     "updatedAt": "2026-07-08",
-    "lastChecked": "2026-07-11T07:45:00.008Z"
+    "lastChecked": "2026-07-12T08:06:39.736Z"
   },
   {
     "id": "lautaro",
@@ -205,7 +205,7 @@
     "age": 27,
     "image": "/images/players/lautaro.jpg",
     "updatedAt": "2026-07-08",
-    "lastChecked": "2026-07-11T07:45:00.008Z"
+    "lastChecked": "2026-07-12T08:06:39.736Z"
   },
   {
     "id": "brunofernandes",
@@ -218,7 +218,7 @@
     "age": 31,
     "image": "/images/players/brunofernandes.jpg",
     "updatedAt": "2026-07-08",
-    "lastChecked": "2026-07-11T07:45:00.008Z"
+    "lastChecked": "2026-07-12T08:06:39.736Z"
   },
   {
     "id": "watkins",
@@ -231,7 +231,7 @@
     "age": 30,
     "image": "/images/players/watkins.jpg",
     "updatedAt": "2026-07-08",
-    "lastChecked": "2026-07-11T07:45:00.008Z"
+    "lastChecked": "2026-07-12T08:06:39.736Z"
   },
   {
     "id": "rashford",
@@ -244,7 +244,7 @@
     "age": 28,
     "image": "/images/players/rashford.jpg",
     "updatedAt": "2026-07-08",
-    "lastChecked": "2026-07-11T07:45:00.008Z"
+    "lastChecked": "2026-07-12T08:06:39.736Z"
   },
   {
     "id": "saka",
@@ -257,6 +257,6 @@
     "age": 24,
     "image": "/images/players/saka.jpg",
     "updatedAt": "2026-07-08",
-    "lastChecked": "2026-07-11T07:45:00.008Z"
+    "lastChecked": "2026-07-12T08:06:39.736Z"
   }
 ]
