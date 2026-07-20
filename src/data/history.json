@@ -423,5 +423,30 @@
       "rashford": 160,
       "saka": 150
     }
+  },
+  {
+    "date": "2026-07-20",
+    "players": {
+      "ronaldo": 976,
+      "messi": 912,
+      "lewandowski": 633,
+      "kane": 474,
+      "neymar": 450,
+      "salah": 420,
+      "benzema": 415,
+      "mbappe": 400,
+      "griezmann": 298,
+      "mane": 290,
+      "lukaku": 285,
+      "haaland": 275,
+      "son": 210,
+      "dybala": 190,
+      "vinicius": 180,
+      "lautaro": 175,
+      "brunofernandes": 165,
+      "watkins": 165,
+      "rashford": 160,
+      "saka": 150
+    }
   }
 ]
