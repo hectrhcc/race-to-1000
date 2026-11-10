@@ -5,12 +5,12 @@
     "country": "Portugal",
     "countryFlag": "🇵🇹",
     "club": "Al Nassr",
-    "goals": 976,
+    "goals": 985,
     "position": "Delantero",
     "age": 41,
     "image": "/images/players/ronaldo.jpg",
-    "updatedAt": "2026-07-08",
-    "lastChecked": "2026-07-09T03:41:44.455Z"
+    "updatedAt": "2026-11-09",
+    "lastChecked": "2026-11-09T12:00:00.000Z"
   },
   {
     "id": "messi",
@@ -18,12 +18,12 @@
     "country": "Argentina",
     "countryFlag": "🇦🇷",
     "club": "Inter Miami CF",
-    "goals": 912,
+    "goals": 937,
     "position": "Delantero",
     "age": 39,
     "image": "/images/players/messi.jpg",
-    "updatedAt": "2026-07-08",
-    "lastChecked": "2026-07-09T03:41:44.455Z"
+    "updatedAt": "2026-11-09",
+    "lastChecked": "2026-11-09T12:00:00.000Z"
   },
   {
     "id": "lewandowski",
@@ -31,12 +31,12 @@
     "country": "Polonia",
     "countryFlag": "🇵🇱",
     "club": "FC Barcelona",
-    "goals": 633,
+    "goals": 704,
     "position": "Delantero",
     "age": 37,
     "image": "/images/players/lewandowski.jpg",
-    "updatedAt": "2026-07-08",
-    "lastChecked": "2026-07-09T03:41:44.455Z"
+    "updatedAt": "2026-11-09",
+    "lastChecked": "2026-11-09T12:00:00.000Z"
   },
   {
     "id": "kane",
@@ -44,12 +44,12 @@
     "country": "Inglaterra",
     "countryFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
     "club": "Bayern München",
-    "goals": 474,
+    "goals": 534,
     "position": "Delantero",
     "age": 32,
     "image": "/images/players/kane.jpg",
-    "updatedAt": "2026-07-08",
-    "lastChecked": "2026-07-09T03:41:44.455Z"
+    "updatedAt": "2026-11-09",
+    "lastChecked": "2026-11-09T12:00:00.000Z"
   },
   {
     "id": "neymar",
@@ -57,12 +57,12 @@
     "country": "Brasil",
     "countryFlag": "🇧🇷",
     "club": "Al Hilal",
-    "goals": 450,
+    "goals": 460,
     "position": "Extremo",
     "age": 34,
     "image": "/images/players/neymar.jpg",
-    "updatedAt": "2026-07-08",
-    "lastChecked": "2026-07-09T03:41:44.455Z"
+    "updatedAt": "2026-11-09",
+    "lastChecked": "2026-11-09T12:00:00.000Z"
   },
   {
     "id": "salah",
@@ -70,12 +70,12 @@
     "country": "Egipto",
     "countryFlag": "🇪🇬",
     "club": "Liverpool FC",
-    "goals": 420,
+    "goals": 443,
     "position": "Extremo",
     "age": 34,
     "image": "/images/players/salah.jpg",
-    "updatedAt": "2026-07-08",
-    "lastChecked": "2026-07-09T03:41:44.455Z"
+    "updatedAt": "2026-11-09",
+    "lastChecked": "2026-11-09T12:00:00.000Z"
   },
   {
     "id": "benzema",
@@ -83,12 +83,12 @@
     "country": "Francia",
     "countryFlag": "🇫🇷",
     "club": "Al Ittihad",
-    "goals": 415,
+    "goals": 498,
     "position": "Delantero",
     "age": 38,
     "image": "/images/players/benzema.jpg",
-    "updatedAt": "2026-07-08",
-    "lastChecked": "2026-07-09T03:41:44.455Z"
+    "updatedAt": "2026-11-09",
+    "lastChecked": "2026-11-09T12:00:00.000Z"
   },
   {
     "id": "mbappe",
@@ -96,12 +96,12 @@
     "country": "Francia",
     "countryFlag": "🇫🇷",
     "club": "Real Madrid CF",
-    "goals": 400,
+    "goals": 459,
     "position": "Delantero",
     "age": 27,
     "image": "/images/players/mbappe.jpg",
-    "updatedAt": "2026-07-08",
-    "lastChecked": "2026-07-09T03:41:44.455Z"
+    "updatedAt": "2026-11-09",
+    "lastChecked": "2026-11-09T12:00:00.000Z"
   },
   {
     "id": "griezmann",
@@ -109,12 +109,12 @@
     "country": "Francia",
     "countryFlag": "🇫🇷",
     "club": "Atlético de Madrid",
-    "goals": 298,
+    "goals": 307,
     "position": "Mediapunta",
     "age": 35,
     "image": "/images/players/griezmann.jpg",
-    "updatedAt": "2026-07-08",
-    "lastChecked": "2026-07-09T03:41:44.455Z"
+    "updatedAt": "2026-11-09",
+    "lastChecked": "2026-11-09T12:00:00.000Z"
   },
   {
     "id": "mane",
@@ -122,12 +122,12 @@
     "country": "Senegal",
     "countryFlag": "🇸🇳",
     "club": "Al Nassr",
-    "goals": 290,
+    "goals": 304,
     "position": "Extremo",
     "age": 34,
     "image": "/images/players/mane.jpg",
-    "updatedAt": "2026-07-08",
-    "lastChecked": "2026-07-09T03:41:44.455Z"
+    "updatedAt": "2026-11-09",
+    "lastChecked": "2026-11-09T12:00:00.000Z"
   },
   {
     "id": "lukaku",
@@ -135,12 +135,12 @@
     "country": "Bélgica",
     "countryFlag": "🇧🇪",
     "club": "Napoli",
-    "goals": 285,
+    "goals": 400,
     "position": "Delantero",
     "age": 31,
     "image": "/images/players/lukaku.jpg",
-    "updatedAt": "2026-07-08",
-    "lastChecked": "2026-07-09T03:41:44.455Z"
+    "updatedAt": "2026-11-09",
+    "lastChecked": "2026-11-09T12:00:00.000Z"
   },
   {
     "id": "haaland",
@@ -148,12 +148,12 @@
     "country": "Noruega",
     "countryFlag": "🇳🇴",
     "club": "Manchester City",
-    "goals": 275,
+    "goals": 377,
     "position": "Delantero",
     "age": 25,
     "image": "/images/players/haaland.jpg",
-    "updatedAt": "2026-07-08",
-    "lastChecked": "2026-07-09T03:41:44.455Z"
+    "updatedAt": "2026-11-09",
+    "lastChecked": "2026-11-09T12:00:00.000Z"
   },
   {
     "id": "son",
@@ -161,12 +161,12 @@
     "country": "Corea del Sur",
     "countryFlag": "🇰🇷",
     "club": "Tottenham Hotspur",
-    "goals": 210,
+    "goals": 303,
     "position": "Extremo",
     "age": 33,
     "image": "/images/players/son.jpg",
-    "updatedAt": "2026-07-08",
-    "lastChecked": "2026-07-09T03:41:44.455Z"
+    "updatedAt": "2026-11-09",
+    "lastChecked": "2026-11-09T12:00:00.000Z"
   },
   {
     "id": "dybala",
@@ -174,12 +174,12 @@
     "country": "Argentina",
     "countryFlag": "🇦🇷",
     "club": "AS Roma",
-    "goals": 190,
+    "goals": 202,
     "position": "Mediapunta",
     "age": 32,
     "image": "/images/players/dybala.jpg",
-    "updatedAt": "2026-07-08",
-    "lastChecked": "2026-07-09T03:41:44.455Z"
+    "updatedAt": "2026-11-09",
+    "lastChecked": "2026-11-09T12:00:00.000Z"
   },
   {
     "id": "vinicius",
@@ -187,12 +187,12 @@
     "country": "Brasil",
     "countryFlag": "🇧🇷",
     "club": "Real Madrid CF",
-    "goals": 180,
+    "goals": 155,
     "position": "Extremo",
     "age": 24,
     "image": "/images/players/vinicius.jpg",
-    "updatedAt": "2026-07-08",
-    "lastChecked": "2026-07-09T03:41:44.455Z"
+    "updatedAt": "2026-11-09",
+    "lastChecked": "2026-11-09T12:00:00.000Z"
   },
   {
     "id": "lautaro",
@@ -200,12 +200,12 @@
     "country": "Argentina",
     "countryFlag": "🇦🇷",
     "club": "Inter de Milán",
-    "goals": 175,
+    "goals": 250,
     "position": "Delantero",
     "age": 27,
     "image": "/images/players/lautaro.jpg",
-    "updatedAt": "2026-07-08",
-    "lastChecked": "2026-07-09T03:41:44.455Z"
+    "updatedAt": "2026-11-09",
+    "lastChecked": "2026-11-09T12:00:00.000Z"
   },
   {
     "id": "brunofernandes",
@@ -213,12 +213,12 @@
     "country": "Portugal",
     "countryFlag": "🇵🇹",
     "club": "Manchester United",
-    "goals": 165,
+    "goals": 223,
     "position": "Mediapunta",
     "age": 31,
     "image": "/images/players/brunofernandes.jpg",
-    "updatedAt": "2026-07-08",
-    "lastChecked": "2026-07-09T03:41:44.455Z"
+    "updatedAt": "2026-11-09",
+    "lastChecked": "2026-11-09T12:00:00.000Z"
   },
   {
     "id": "watkins",
@@ -226,12 +226,12 @@
     "country": "Inglaterra",
     "countryFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
     "club": "Aston Villa",
-    "goals": 165,
+    "goals": 201,
     "position": "Delantero",
     "age": 30,
     "image": "/images/players/watkins.jpg",
-    "updatedAt": "2026-07-08",
-    "lastChecked": "2026-07-09T03:41:44.455Z"
+    "updatedAt": "2026-11-09",
+    "lastChecked": "2026-11-09T12:00:00.000Z"
   },
   {
     "id": "rashford",
@@ -239,12 +239,12 @@
     "country": "Inglaterra",
     "countryFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
     "club": "FC Barcelona",
-    "goals": 160,
+    "goals": 169,
     "position": "Extremo",
     "age": 28,
     "image": "/images/players/rashford.jpg",
-    "updatedAt": "2026-07-08",
-    "lastChecked": "2026-07-09T03:41:44.455Z"
+    "updatedAt": "2026-11-09",
+    "lastChecked": "2026-11-09T12:00:00.000Z"
   },
   {
     "id": "saka",
@@ -252,11 +252,11 @@
     "country": "Inglaterra",
     "countryFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
     "club": "Arsenal FC",
-    "goals": 150,
+    "goals": 89,
     "position": "Extremo",
     "age": 24,
     "image": "/images/players/saka.jpg",
-    "updatedAt": "2026-07-08",
-    "lastChecked": "2026-07-09T03:41:44.455Z"
+    "updatedAt": "2026-11-09",
+    "lastChecked": "2026-11-09T12:00:00.000Z"
   }
 ]
